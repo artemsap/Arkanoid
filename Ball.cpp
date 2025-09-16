@@ -2,14 +2,13 @@
 #include <limits>
 
 Ball::Ball(float size_, 
-		   float speed_, 
+		   glm::vec2 velocity_,
 		   Platform* platform_,
 		   Wall* wallLeft_,
 		   Wall* wallRight_,
 		   Wall* wallUp_,
 		   Wall* wallDown_):
 	size(size_, size_),
-	speed(speed_), 
 	platform(platform_),
 	wallLeft(wallLeft_),
 	wallRight(wallRight_),
@@ -17,7 +16,7 @@ Ball::Ball(float size_,
 	wallDown(wallDown_)
 {
 	position = { SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2 };
-	direction = glm::normalize(glm::vec2(1, 1));
+	velocity = velocity_;
 }
 
 void Ball::Draw()
@@ -33,43 +32,69 @@ void Ball::Draw()
 
 void Ball::Act(float dt)
 {
-	auto delta = direction * speed * dt;
+	auto delta = velocity * dt;
 	position += delta;
 
 	//chect платформа тут , с учетом скорости платформы изменить направление мяча
-	if (Utils::checkAABBIntersection(position, glm::vec2(size, size), platform->GetPosition(), platform->GetSize()))
-	{
-		color = Utils::rgb_to_uint32(0, 255, 0);
-
-		//glm::vec2 ballCenter = position + size * 0.5f;
-		//glm::vec2 paddleCenter = platform->GetPosition() + platform->GetSize() * 0.5f;
-
-		direction = { direction.x, -direction.y };
-		//direction += platform->GetDirection() * platform->GetSpeed();
-	}
-	else
-	{
-		color = Utils::rgb_to_uint32(255, 0, 0);
-	}
+	processCollidingWithPlatform();
 
 	//проверить пересечение с кирпичом, если пересеклись, то отскакиваем и ломаем кирпич (меняем направление, будто бы луч от зеркала)
 
 	//проверка пересечения со стеной (меняем направление, будто бы луч от зеркала)
-	if (Utils::checkAABBIntersection(position, glm::vec2(size, size), wallLeft->GetPosition(), wallLeft->GetSize()))
+	if (Utils::checkAABBIntersection(position, size, wallLeft->GetPosition(), wallLeft->GetSize()))
 	{
-		direction = { -direction.x, direction.y };
+		velocity.x = -velocity.x;
 	} 	
-	else if (Utils::checkAABBIntersection(position, glm::vec2(size, size), wallRight->GetPosition(), wallRight->GetSize()))
+	else if (Utils::checkAABBIntersection(position, size, wallRight->GetPosition(), wallRight->GetSize()))
 	{
-		direction = { -direction.x, direction.y };
+		velocity.x = -velocity.x;
 	}
 
-	if (Utils::checkAABBIntersection(position, glm::vec2(size, size), wallUp->GetPosition(), wallUp->GetSize()))
+	if (Utils::checkAABBIntersection(position, size, wallUp->GetPosition(), wallUp->GetSize()))
 	{
-		direction = { direction.x, -direction.y };
+		velocity.y = -velocity.y;
 	}
-	else if (Utils::checkAABBIntersection(position, glm::vec2(size, size), wallDown->GetPosition(), wallDown->GetSize()))
+	else if (Utils::checkAABBIntersection(position, size, wallDown->GetPosition(), wallDown->GetSize()))
 	{
-		direction = { direction.x, -direction.y }; //DEAD HERE
+		velocity.y = -velocity.y; //DEAD HERE
+	}
+}
+
+void Ball::processCollidingWithPlatform()
+{
+	if (!Utils::checkAABBIntersection(position, size, platform->GetPosition(), platform->GetSize()))
+	{
+		return;
+	}
+
+	auto side = getCollisionSide(platform);
+	if (side == CollisionSide::RIGHT || side == CollisionSide::LEFT)
+	{
+		velocity.x = -velocity.x;
+		velocity.y += platform->GetVelocity().y * 0.3f;
+
+		if (side == CollisionSide::LEFT)
+		{
+			position.x = platform->GetPosition().x - size.x - 0.1f;
+		}
+		else
+		{
+			position.x = platform->GetPosition().x + platform->GetSize().x + 0.1f;
+		}
+	}
+	if (side == CollisionSide::BOTTOM || side == CollisionSide::TOP)
+	{
+		velocity.y = -velocity.y;
+		velocity.x += platform->GetVelocity().x * 0.3f;
+
+		// Корректируем позицию
+		if (side == CollisionSide::TOP)
+		{
+			position.y = platform->GetPosition().y - size.y - 0.1f;
+		}
+		else
+		{
+			position.y = platform->GetPosition().y + platform->GetSize().y + 0.1f;
+		}
 	}
 }

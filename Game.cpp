@@ -20,7 +20,7 @@
 //  is_window_active() - returns true if window is active
 //  schedule_quit_game() - quit game after act()
 
-Platform platform{ {20, 100}, 100, {SCREEN_HEIGHT * 0.9f, SCREEN_WIDTH * 0.5f} };
+Platform platform{ {10, 100}, 100, {SCREEN_WIDTH / 2 - 50, SCREEN_HEIGHT * 0.8f} };
 
 int wallThinkness = 20;
 Wall wallLeft{ {SCREEN_HEIGHT, wallThinkness}, {0,0} };
@@ -28,7 +28,7 @@ Wall wallRight{ {SCREEN_HEIGHT, wallThinkness}, {SCREEN_WIDTH - wallThinkness, 0
 Wall wallUp{ {wallThinkness, SCREEN_WIDTH}, {0,0} };
 Wall wallDown{ {wallThinkness, SCREEN_WIDTH}, {0,SCREEN_HEIGHT - wallThinkness} };
 
-Ball ball{ 50.0f, 100, &platform, &wallLeft, &wallRight, &wallUp, &wallDown };
+Ball ball{ 50.0f, {0, 100}, &platform, &wallLeft, &wallRight, &wallUp, &wallDown };
 
 // initialize game data in this function
 void initialize()

@@ -24,17 +24,17 @@ void Platform::Act(float dt)
 {
 	if (is_key_pressed(VK_LEFT))
 	{
-		direction = glm::vec2{ -1, 0 };
-		position += direction * current_speed * dt;
+		velocity = glm::vec2{ -1, 0 } * current_speed;
+		position += velocity * dt;
 	}
 	else if (is_key_pressed(VK_RIGHT))
 	{
-		direction = glm::vec2{ 1, 0 };
-		position += direction * current_speed * dt;
+		velocity = glm::vec2{ 1, 0 } * current_speed;
+		position += velocity * dt;
 	}
 	else
 	{
-		direction = glm::vec2{ 0, 0 };
+		velocity = glm::vec2{ 0, 0 };
 	}
 	if (is_key_pressed(VK_SPACE))
 	{
@@ -56,12 +56,7 @@ glm::vec2 Platform::GetSize() const
 	return { size.y, size.x }; // разобраться
 }
 
-const glm::vec2& Platform::GetDirection() const
+const glm::vec2& Platform::GetVelocity() const
 {
-	return direction;
-}
-
-const float Platform::GetSpeed() const
-{
-	return current_speed;
+	return velocity;
 }

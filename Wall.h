@@ -8,7 +8,7 @@
 class Wall : public Drawable
 {
 public:
-	Wall(const glm::vec2& size_, glm::vec2 position_);
+	Wall(const glm::vec2& size_, glm::vec2 position_, uint32_t color_ = Utils::rgb_to_uint32(120, 120, 120));
 
 	virtual void Draw() override;
 
@@ -17,6 +17,6 @@ public:
 private:
 	glm::vec2 size;
 	glm::vec2 position;
-	uint32_t color = Utils::rgb_to_uint32(120, 120, 120);
+	uint32_t color;
 };
 

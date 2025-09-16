@@ -15,17 +15,16 @@ public:
 	virtual void Act(float dt) override;
 	const glm::vec2& GetPosition() const;
 	glm::vec2 GetSize() const;
-	const glm::vec2& GetDirection() const;
-	const float GetSpeed() const;
+	const glm::vec2& GetVelocity() const;
 
 private:
 	glm::vec2 size;
-	const float speed_multiplier = 5.0f;
+	const float speed_multiplier = 3.0f;
 	float current_speed;
 	const float default_speed;
 	const float shift_speed;
 	glm::vec2 position;
-	glm::vec2 direction;
+	glm::vec2 velocity;
 	uint32_t color = Utils::rgb_to_uint32(0, 255, 0);
 };
 

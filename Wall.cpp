@@ -1,6 +1,7 @@
 #include "Wall.h"
 
-Wall::Wall(const glm::vec2& size_, glm::vec2 position_) : size(size_), position(position_)
+Wall::Wall(const glm::vec2& size_, glm::vec2 position_, uint32_t color_) : 
+	size(size_), position(position_), color(color_)
 {}
 
 void Wall::Draw()
