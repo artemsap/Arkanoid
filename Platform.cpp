@@ -15,7 +15,7 @@ void Platform::Draw()
 	{
 		for (size_t j = 0; j < size.x; j++)
 		{
-			buffer[static_cast<size_t>(position.y) + j][static_cast<size_t>(position.x) + i] = std::numeric_limits<uint32_t>::max();
+			buffer[static_cast<size_t>(position.y) + i][static_cast<size_t>(position.x) + j] = color;
 		}
 	}
 }
@@ -44,6 +44,16 @@ void Platform::Act(float dt)
 	{
 		current_speed = default_speed;
 	}
+
+
+	if (position.x + size.x > SCREEN_WIDTH)
+	{
+ 		position.x = SCREEN_WIDTH - size.x;
+	}
+	if (position.x < 0)
+	{
+		position.x = 0;
+	}
 }
 
 const glm::vec2& Platform::GetPosition() const
@@ -53,7 +63,7 @@ const glm::vec2& Platform::GetPosition() const
 
 glm::vec2 Platform::GetSize() const
 {
-	return { size.y, size.x }; // разобраться
+	return size;
 }
 
 const glm::vec2& Platform::GetVelocity() const

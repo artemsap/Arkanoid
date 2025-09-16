@@ -7,13 +7,15 @@ Ball::Ball(float size_,
 		   Wall* wallLeft_,
 		   Wall* wallRight_,
 		   Wall* wallUp_,
-		   Wall* wallDown_):
+		   Wall* wallDown_,
+		   std::vector<Brick>* bricks_):
 	size(size_, size_),
 	platform(platform_),
 	wallLeft(wallLeft_),
 	wallRight(wallRight_),
 	wallUp(wallUp_),
-	wallDown(wallDown_)
+	wallDown(wallDown_),
+	bricks(bricks_)
 {
 	position = { SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2 };
 	velocity = velocity_;
@@ -35,12 +37,13 @@ void Ball::Act(float dt)
 	auto delta = velocity * dt;
 	position += delta;
 
-	//chect платформа тут , с учетом скорости платформы изменить направление мяча
-	processCollidingWithPlatform();
+	processCollidingWithObject(platform);
 
-	//проверить пересечение с кирпичом, если пересеклись, то отскакиваем и ломаем кирпич (меняем направление, будто бы луч от зеркала)
+	for (size_t i = 0; i < (*bricks).size(); i++)
+	{
+		processCollidingWithBrick(i);
+	}
 
-	//проверка пересечения со стеной (меняем направление, будто бы луч от зеркала)
 	if (Utils::checkAABBIntersection(position, size, wallLeft->GetPosition(), wallLeft->GetSize()))
 	{
 		velocity.x = -velocity.x;
@@ -56,45 +59,11 @@ void Ball::Act(float dt)
 	}
 	else if (Utils::checkAABBIntersection(position, size, wallDown->GetPosition(), wallDown->GetSize()))
 	{
-		velocity.y = -velocity.y; //DEAD HERE
+		end = true;
 	}
 }
 
-void Ball::processCollidingWithPlatform()
+bool Ball::IsEnd()
 {
-	if (!Utils::checkAABBIntersection(position, size, platform->GetPosition(), platform->GetSize()))
-	{
-		return;
-	}
-
-	auto side = getCollisionSide(platform);
-	if (side == CollisionSide::RIGHT || side == CollisionSide::LEFT)
-	{
-		velocity.x = -velocity.x;
-		velocity.y += platform->GetVelocity().y * 0.3f;
-
-		if (side == CollisionSide::LEFT)
-		{
-			position.x = platform->GetPosition().x - size.x - 0.1f;
-		}
-		else
-		{
-			position.x = platform->GetPosition().x + platform->GetSize().x + 0.1f;
-		}
-	}
-	if (side == CollisionSide::BOTTOM || side == CollisionSide::TOP)
-	{
-		velocity.y = -velocity.y;
-		velocity.x += platform->GetVelocity().x * 0.3f;
-
-		// Корректируем позицию
-		if (side == CollisionSide::TOP)
-		{
-			position.y = platform->GetPosition().y - size.y - 0.1f;
-		}
-		else
-		{
-			position.y = platform->GetPosition().y + platform->GetSize().y + 0.1f;
-		}
-	}
+	return end;
 }
