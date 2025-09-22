@@ -41,7 +41,7 @@ void act(float dt)
 void draw()
 {
 	// clear backbuffer
-	memset(buffer, 0, SCREEN_HEIGHT * SCREEN_WIDTH * sizeof(uint32_t));
+	memset(buffer, 0, sizeof(buffer));
 	level.Draw();
 }
 

@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Drawable.h"
+#include "BaseDrawable.h"
 #include "Actable.h"
 #include "Utils.h"
 #include "Platform.h"
@@ -10,7 +10,7 @@
 #include <vector>
 #include <glm.hpp>
 
-class Ball : public Drawable, public Actable
+class Ball : public BaseDrawable, public Actable
 {
 public:
 	Ball(float size_,
@@ -22,7 +22,6 @@ public:
 		 Wall* wallDown_,
 		 std::vector<Brick>* bricks_);
 
-	virtual void Draw() override;
 	virtual void Act(float dt) override;
 	bool IsEnd();
 private:
@@ -122,8 +121,6 @@ private:
 		}
 	}
 
-	const glm::vec2 size;
-	glm::vec2 position;
 	glm::vec2 velocity;
 	Platform* platform;			 
 	Wall* wallLeft;
@@ -131,7 +128,6 @@ private:
 	Wall* wallUp;
 	Wall* wallDown;
 	std::vector<Brick>* bricks;
-	uint32_t color = Utils::rgb_to_uint32(255, 0, 0);
 
 	bool end = false;
 };

@@ -2,23 +2,11 @@
 #include <limits>
 
 Platform::Platform(const glm::vec2& size_, float speed_, const glm::vec2& position_) :
-	size(size_),
+	BaseDrawable(size_, position_, Utils::rgb_to_uint32(0, 255, 0)),
 	default_speed(speed_), 
-	position(position_), 
 	shift_speed(default_speed * speed_multiplier), 
 	current_speed(default_speed)
 {}
-
-void Platform::Draw()
-{
-	for (size_t i = 0; i < size.y; i++)
-	{
-		for (size_t j = 0; j < size.x; j++)
-		{
-			buffer[static_cast<size_t>(position.y) + i][static_cast<size_t>(position.x) + j] = color;
-		}
-	}
-}
 
 void Platform::Act(float dt)
 {
@@ -54,16 +42,6 @@ void Platform::Act(float dt)
 	{
 		position.x = 0;
 	}
-}
-
-const glm::vec2& Platform::GetPosition() const
-{
-	return position;
-}
-
-glm::vec2 Platform::GetSize() const
-{
-	return size;
 }
 
 const glm::vec2& Platform::GetVelocity() const

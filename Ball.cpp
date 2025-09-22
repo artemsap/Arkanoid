@@ -8,29 +8,17 @@ Ball::Ball(float size_,
 		   Wall* wallRight_,
 		   Wall* wallUp_,
 		   Wall* wallDown_,
-		   std::vector<Brick>* bricks_):
-	size(size_, size_),
+		   std::vector<Brick>* bricks_) 
+	: BaseDrawable(glm::vec2{ size_, size_ }, glm::vec2{ SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2 }, Utils::rgb_to_uint32(255, 0, 0)),
 	platform(platform_),
 	wallLeft(wallLeft_),
 	wallRight(wallRight_),
 	wallUp(wallUp_),
 	wallDown(wallDown_),
-	bricks(bricks_)
-{
-	position = { SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2 };
-	velocity = velocity_;
-}
+	bricks(bricks_),
+	velocity(velocity_)
+{}
 
-void Ball::Draw()
-{
-	for (size_t i = 0; i < size.y; i++)
-	{
-		for (size_t j = 0; j < size.x; j++)
-		{
-			buffer[static_cast<size_t>(position.y) + j][static_cast<size_t>(position.x) + i] = color;
-		}
-	}
-}
 
 void Ball::Act(float dt)
 {
