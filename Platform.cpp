@@ -1,8 +1,8 @@
 #include "Platform.h"
 #include <limits>
 
-Platform::Platform(const glm::vec2& size_, float speed_, const glm::vec2& position_) :
-	BaseDrawable(size_, position_, Utils::rgb_to_uint32(0, 255, 0)),
+Platform::Platform(const glm::vec2& size_, float speed_, const glm::vec2& position_, uint32_t color_) :
+	BaseDrawable(size_, position_, color_),
 	default_speed(speed_), 
 	shift_speed(default_speed * speed_multiplier), 
 	current_speed(default_speed)

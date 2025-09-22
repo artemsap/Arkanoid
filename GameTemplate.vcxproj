@@ -158,16 +158,15 @@
     <ClInclude Include="Level.h" />
     <ClInclude Include="Platform.h" />
     <ClInclude Include="Utils.h" />
+    <ClInclude Include="StaticObject.h" />
     <ClInclude Include="Wall.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Ball.cpp" />
-    <ClCompile Include="Brick.cpp" />
     <ClCompile Include="Engine.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="Level.cpp" />
     <ClCompile Include="Platform.cpp" />
-    <ClCompile Include="Wall.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

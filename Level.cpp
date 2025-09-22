@@ -11,7 +11,7 @@ void Level::Init()
 	{
 		for (size_t j = 0; j < height; j++)
 		{
-			bricks.emplace_back(brickSize, glm::vec2(2 * wallThinkness + i * (brickSize.x + 10), 2 * wallThinkness + j * (brickSize.y + 10)));
+			bricks.emplace_back(brickSize, glm::vec2(2 * wallThinkness + i * (brickSize.x + 10), 2 * wallThinkness + j * (brickSize.y + 10)), Brick::defaultColor);
 		}
 	}
 }
@@ -34,6 +34,7 @@ void Level::Act(float dt)
 {
 	ball.Act(dt);
 	platform.Act(dt);
+
 	if (ball.IsEnd())
 	{
 		schedule_quit_game();

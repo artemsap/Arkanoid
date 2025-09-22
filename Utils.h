@@ -5,7 +5,7 @@
 class Utils
 {
 public:
-	static uint32_t rgb_to_uint32(uint8_t r, uint8_t g, uint8_t b)
+	static constexpr uint32_t rgb_to_uint32(uint8_t r, uint8_t g, uint8_t b)
 	{
 		// Устанавливаем альфа-канал в 0xFF (255) и компоненты цветов
 		return (0xFF << 24) | (r << 16) | (g << 8) | b;

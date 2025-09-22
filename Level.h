@@ -15,13 +15,13 @@ public:
 	virtual void Draw() override;
 	virtual void Act(float dt) override;
 private:
-	Platform platform{ {100, 10}, 100, {SCREEN_WIDTH / 2 - 50, SCREEN_HEIGHT * 0.8f} };
+	Platform platform{ {100, 10}, 100, {SCREEN_WIDTH / 2 - 50, SCREEN_HEIGHT * 0.8f}, Platform::defaultColor };
 
 	int wallThinkness = 20;
-	Wall wallLeft{ {wallThinkness, SCREEN_HEIGHT}, {0, 0} };
-	Wall wallRight{ {wallThinkness, SCREEN_HEIGHT}, {SCREEN_WIDTH - wallThinkness, 0} };
-	Wall wallUp{ {SCREEN_WIDTH, wallThinkness}, {0, 0} };
-	Wall wallDown{ {SCREEN_WIDTH, wallThinkness}, {0, SCREEN_HEIGHT - wallThinkness} };
+	Wall wallLeft{ {wallThinkness, SCREEN_HEIGHT}, {0, 0}, Wall::defaultColor };
+	Wall wallRight{ {wallThinkness, SCREEN_HEIGHT}, {SCREEN_WIDTH - wallThinkness, 0}, Wall::defaultColor };
+	Wall wallUp{ {SCREEN_WIDTH, wallThinkness}, {0, 0}, Wall::defaultColor };
+	Wall wallDown{ {SCREEN_WIDTH, wallThinkness}, {0, SCREEN_HEIGHT - wallThinkness}, Wall::defaultColor };
 
 	std::vector<Brick> bricks;
 

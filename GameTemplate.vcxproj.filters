@@ -22,16 +22,10 @@
     <ClCompile Include="Ball.cpp">
       <Filter>GameObjects</Filter>
     </ClCompile>
-    <ClCompile Include="Brick.cpp">
-      <Filter>GameObjects</Filter>
-    </ClCompile>
     <ClCompile Include="Level.cpp">
       <Filter>GameObjects</Filter>
     </ClCompile>
     <ClCompile Include="Platform.cpp">
-      <Filter>GameObjects</Filter>
-    </ClCompile>
-    <ClCompile Include="Wall.cpp">
       <Filter>GameObjects</Filter>
     </ClCompile>
   </ItemGroup>
@@ -45,13 +39,10 @@
     <ClInclude Include="Engine.h">
       <Filter>Engine</Filter>
     </ClInclude>
-    <ClInclude Include="Wall.h">
+    <ClInclude Include="StaticObject.h">
       <Filter>GameObjects</Filter>
     </ClInclude>
     <ClInclude Include="Ball.h">
-      <Filter>GameObjects</Filter>
-    </ClInclude>
-    <ClInclude Include="Brick.h">
       <Filter>GameObjects</Filter>
     </ClInclude>
     <ClInclude Include="Level.h">
@@ -65,6 +56,12 @@
     </ClInclude>
     <ClInclude Include="BaseDrawable.h">
       <Filter>Abstration</Filter>
+    </ClInclude>
+    <ClInclude Include="Brick.h">
+      <Filter>GameObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="Wall.h">
+      <Filter>GameObjects</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
