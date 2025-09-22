@@ -12,29 +12,27 @@ public:
 		: size(size_), position(position_), color(color_)
 	{}
 
-	void Draw() override // CHECK
+	void Draw() override
 	{
 		for (int i = 0; i < size.y; i++)
 		{
 			int index_height = static_cast<int>(position.y) + i;
 			if (index_height < 0 || index_height >= SCREEN_HEIGHT)
 			{
-				continue; // CHECK
+				continue;
 			}
 
-			if (position.x >= SCREEN_WIDTH)
+			int fill_size = static_cast<int>(size.x);
+			if (int coord_right_point = static_cast<size_t>(position.x) + static_cast<int>(size.x); coord_right_point >= SCREEN_WIDTH)
 			{
-				continue; // CHECk
+				fill_size -= coord_right_point - SCREEN_WIDTH;
 			}
 
-			int fill_size = (int)size.x;
-			if (int size = static_cast<size_t>(position.x) + fill_size; size >= SCREEN_WIDTH)
+			if (fill_size > 0)
 			{
-				fill_size -= size - SCREEN_WIDTH;
+				auto ptr = buffer[index_height] + static_cast<size_t>(position.x);
+				std::fill(ptr, ptr + fill_size, color);
 			}
-
-			auto ptr = buffer[index_height] + static_cast<size_t>(position.x);
-			std::fill(ptr, ptr + fill_size, color);
 		}
 	}
 
