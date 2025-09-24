@@ -1,5 +1,7 @@
 #pragma once
 
+#include<memory>
+
 #include "Drawable.h"
 #include "Actable.h"
 
@@ -11,10 +13,18 @@
 class Level : public Drawable, public Actable
 {
 public:
-	void Init();
+	static std::shared_ptr<Level> Get();
+
+	Level(const Level&) = delete;
+	Level(Level&&) = delete;
+	Level& operator=(const Level&) = delete;
+	Level& operator=(Level&&) = delete;
+
 	virtual void Draw() override;
 	virtual void Act(float dt) override;
 private:
+	Level();
+
 	Platform platform{ {100, 10}, {SCREEN_WIDTH / 2 - 50, SCREEN_HEIGHT * 0.8f}, Platform::defaultColor, 100 };
 
 	int wallThinkness = 20;

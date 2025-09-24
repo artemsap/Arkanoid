@@ -18,12 +18,11 @@
 //  is_window_active() - returns true if window is active
 //  schedule_quit_game() - quit game after act()
 
-Level level;
+auto level = Level::Get();
 
 // initialize game data in this function
 void initialize()
 {
-	level.Init();
 }
 
 // this function is called to update game data,
@@ -33,7 +32,7 @@ void act(float dt)
 	if (is_key_pressed(VK_ESCAPE))
 		schedule_quit_game();
 
-	level.Act(dt);
+	level->Act(dt);
 }
 
 // fill buffer in this function
@@ -42,7 +41,7 @@ void draw()
 {
 	// clear backbuffer
 	memset(buffer, 0, sizeof(buffer));
-	level.Draw();
+	level->Draw();
 }
 
 // free game data in this function

@@ -1,6 +1,12 @@
 #include "Level.h"
 
-void Level::Init()
+std::shared_ptr<Level> Level::Get()
+{
+	static std::shared_ptr<Level> level(new Level);
+	return level;
+}
+
+Level::Level()
 {
 	size_t width = 10, height = 5;
 	bricks.reserve(width * height);
