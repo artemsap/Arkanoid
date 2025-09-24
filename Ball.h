@@ -13,17 +13,12 @@
 class Ball : public BaseDrawable, public Actable
 {
 public:
-	Ball(float size_,
-		 glm::vec2 velocity_,
-		 Platform* platform_, 
-		 Wall* wallLeft_,
-		 Wall* wallRight_,
-		 Wall* wallUp_,
-		 Wall* wallDown_,
-		 std::vector<Brick>* bricks_);
+	Ball(const glm::vec2& size_, const glm::vec2& position_, uint32_t color_, const glm::vec2& velocity);
 
 	virtual void Act(float dt) override;
 	bool IsEnd();
+
+	static const uint32_t defaultColor = Utils::rgb_to_uint32(255, 255, 255);
 private:
 	enum class CollisionSide
 	{
@@ -67,11 +62,11 @@ private:
 	}
 
 	template<typename T>
-	void processCollidingWithObject(T* object)
+	bool processCollidingWithObject(T* object)
 	{
 		if (!Utils::checkAABBIntersection(position, size, object->GetPosition(), object->GetSize()))
 		{
-			return;
+			return false;
 		}
 
 		auto side = getCollisionSide(object);
@@ -103,32 +98,12 @@ private:
 				position.y = object->GetPosition().y + object->GetSize().y + 0.1f;
 			}
 		}
+
+		return true;
 	}
 
-	void processCollidingWithBrick(size_t indexBrick)
-	{
-		bool needToDestroy = false;
-		if (Utils::checkAABBIntersection(position, size, (*bricks)[indexBrick].GetPosition(), (*bricks)[indexBrick].GetSize()))
-		{
-			needToDestroy = true;
-		}
-
-		processCollidingWithObject(&(*bricks)[indexBrick]);
-
-		if (needToDestroy)
-		{
-			(*bricks).erase(std::next((*bricks).begin(), indexBrick));
-		}
-	}
+	void processCollidingWithBrick(size_t indexBrick);
 
 	glm::vec2 velocity;
-	Platform* platform;			 
-	Wall* wallLeft;
-	Wall* wallRight;
-	Wall* wallUp;
-	Wall* wallDown;
-	std::vector<Brick>* bricks;
-
 	bool end = false;
 };
-

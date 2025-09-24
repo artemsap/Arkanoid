@@ -3,6 +3,6 @@
 class Drawable
 {
 public:
-	virtual void Draw() = 0;
+	virtual void Draw() const = 0;
 };
 

@@ -8,6 +8,15 @@
 class Wall : public StaticObject
 {
 public:
+	enum class Orientation
+	{
+		RIGHT,
+		LEFT,
+		TOP,
+		BOTTOM
+	};
+
+public:
 	Wall(const glm::vec2& size_, glm::vec2 position_, uint32_t color_) : StaticObject(size_, position_, color_)
 	{}
 

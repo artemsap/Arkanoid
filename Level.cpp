@@ -22,14 +22,14 @@ Level::Level()
 	}
 }
 
-void Level::Draw()
+void Level::Draw() const
 {
 	ball.Draw();
 	platform.Draw();
-	wallLeft.Draw();
-	wallRight.Draw();
-	wallUp.Draw();
-	wallDown.Draw();
+	for (const auto& wall : walls)
+	{
+		wall.second.Draw();
+	}
 	for (auto& brick : bricks)
 	{
 		brick.Draw();
@@ -45,4 +45,19 @@ void Level::Act(float dt)
 	{
 		schedule_quit_game();
 	}
+}
+
+const Platform& Level::GetPlatform() const
+{
+	return platform;
+}
+
+const Wall& Level::GetWall(Wall::Orientation orient) const
+{
+	return walls.at(orient);
+}
+
+std::vector<Brick>& Level::GetBricks()
+{
+	return bricks;
 }

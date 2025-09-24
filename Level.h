@@ -1,6 +1,7 @@
 #pragma once
 
 #include<memory>
+#include<unordered_map>
 
 #include "Drawable.h"
 #include "Actable.h"
@@ -20,21 +21,29 @@ public:
 	Level& operator=(const Level&) = delete;
 	Level& operator=(Level&&) = delete;
 
-	virtual void Draw() override;
+	virtual void Draw() const override;
 	virtual void Act(float dt) override;
+
+	const Platform& GetPlatform() const;
+	const Wall& GetWall(Wall::Orientation orient) const;
+	std::vector<Brick>& GetBricks();
+
 private:
 	Level();
 
 	Platform platform{ {100, 10}, {SCREEN_WIDTH / 2 - 50, SCREEN_HEIGHT * 0.8f}, Platform::defaultColor, 100 };
 
 	int wallThinkness = 20;
-	Wall wallLeft{ {wallThinkness, SCREEN_HEIGHT}, {0, 0}, Wall::defaultColor };
-	Wall wallRight{ {wallThinkness, SCREEN_HEIGHT}, {SCREEN_WIDTH - wallThinkness, 0}, Wall::defaultColor };
-	Wall wallUp{ {SCREEN_WIDTH, wallThinkness}, {0, 0}, Wall::defaultColor };
-	Wall wallDown{ {SCREEN_WIDTH, wallThinkness}, {0, SCREEN_HEIGHT - wallThinkness}, Wall::defaultColor };
+	std::unordered_map<Wall::Orientation, Wall> walls =
+	{
+		{Wall::Orientation::LEFT, Wall{ {wallThinkness, SCREEN_HEIGHT}, {0, 0}, Wall::defaultColor }},
+		{Wall::Orientation::RIGHT, Wall{ {wallThinkness, SCREEN_HEIGHT}, {SCREEN_WIDTH - wallThinkness, 0}, Wall::defaultColor}},
+		{Wall::Orientation::TOP, Wall{ {SCREEN_WIDTH, wallThinkness}, {0, 0}, Wall::defaultColor} },
+		{Wall::Orientation::BOTTOM, Wall{ {SCREEN_WIDTH, wallThinkness}, {0, SCREEN_HEIGHT - wallThinkness}, Wall::defaultColor }}
+	};
 
 	std::vector<Brick> bricks;
 
-	Ball ball{ 50.0f, {0, 100}, &platform, &wallLeft, &wallRight, &wallUp, &wallDown, &bricks };
+	Ball ball{ {50.0f, 50.0f}, glm::vec2{ SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2 }, Ball::defaultColor, {0, 100}};
 };
 

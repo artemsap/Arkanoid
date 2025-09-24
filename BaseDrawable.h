@@ -12,7 +12,7 @@ public:
 		: size(size_), position(position_), color(color_)
 	{}
 
-	void Draw() override
+	void Draw() const override
 	{
 		for (int i = 0; i < size.y; i++)
 		{
