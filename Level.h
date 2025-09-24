@@ -15,7 +15,7 @@ public:
 	virtual void Draw() override;
 	virtual void Act(float dt) override;
 private:
-	Platform platform{ {1200, 10}, 100, {SCREEN_WIDTH / 2 - 50, SCREEN_HEIGHT * 0.8f}, Platform::defaultColor };
+	Platform platform{ {100, 10}, {SCREEN_WIDTH / 2 - 50, SCREEN_HEIGHT * 0.8f}, Platform::defaultColor, 100 };
 
 	int wallThinkness = 20;
 	Wall wallLeft{ {wallThinkness, SCREEN_HEIGHT}, {0, 0}, Wall::defaultColor };
