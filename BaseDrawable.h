@@ -22,16 +22,15 @@ public:
 				continue;
 			}
 
-			int fill_size = static_cast<int>(size.x);
-			if (int coord_right_point = static_cast<size_t>(position.x) + static_cast<int>(size.x); coord_right_point >= SCREEN_WIDTH)
-			{
-				fill_size -= coord_right_point - SCREEN_WIDTH;
-			}
+			int start_data = std::clamp(static_cast<int>(position.x), 0, SCREEN_WIDTH);
+			int end_data = std::clamp(static_cast<int>(position.x + size.x), 0, SCREEN_WIDTH);
 
-			if (fill_size > 0)
+			if (start_data != end_data)
 			{
-				auto ptr = buffer[index_height] + static_cast<size_t>(position.x);
-				std::fill(ptr, ptr + fill_size, color);
+				auto ptr_start = buffer[index_height] + start_data;
+				auto ptr_end = buffer[index_height] + end_data;
+
+				std::fill(ptr_start, ptr_end, color);
 			}
 		}
 	}

@@ -24,6 +24,7 @@ void Platform::Act(float dt)
 	{
 		velocity = glm::vec2{ 0, 0 };
 	}
+
 	if (is_key_pressed(VK_SPACE))
 	{
 		current_speed = shift_speed;
