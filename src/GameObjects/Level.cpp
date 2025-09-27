@@ -42,9 +42,9 @@ const Platform& Level::GetPlatform() const
 	return platform;
 }
 
-const Wall& Level::GetWall(Wall::Orientation orient) const
+const std::unordered_map<Wall::Orientation, Wall>& Level::GetWalls() const
 {
-	return walls.at(orient);
+	return walls;
 }
 
 std::vector<Brick>& Level::GetBricks()

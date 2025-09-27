@@ -7,52 +7,120 @@ Ball::Ball(const Drawable::Config& config, const glm::vec2& velocity_) : BaseDra
 	velocity = velocity_;
 }
 
-
 void Ball::Act(float dt)
 {
 	auto delta = velocity * dt;
 	position += delta;
 
-	processCollidingWithObject(&(Level::Get()->GetPlatform()));
+	auto level = Level::Get();
 
-	auto& bricks = Level::Get()->GetBricks();
-	for (auto iter = bricks.begin(); iter != bricks.end();)
+	processCollidingWithPlatform(&(level->GetPlatform()));
+
+	auto& bricks = level->GetBricks();
+	auto res = std::partition(bricks.begin(), bricks.end(), [&](const Brick& brick) { return !processCollidingWithStaticObject(&brick); });
+	if (res != bricks.end())
 	{
-		if (processCollidingWithObject(&(*iter)))
+		bricks.erase(res, std::end(bricks));
+	}
+
+	for (const auto& [orient, object] : level->GetWalls())
+	{
+		if (processCollidingWithStaticObject(&object) && orient == Wall::Orientation::BOTTOM)
 		{
-			iter = bricks.erase(iter);
+			end = true;
 		}
-		else
-		{
-			++iter;
-		}
-	}
-
-	auto wallLeft = Level::Get()->GetWall(Wall::Orientation::LEFT);
-	auto wallRight = Level::Get()->GetWall(Wall::Orientation::RIGHT);
-	auto wallUp = Level::Get()->GetWall(Wall::Orientation::TOP);
-	auto wallDown = Level::Get()->GetWall(Wall::Orientation::BOTTOM);
-
-	if (Utils::checkAABBIntersection(position, size, wallLeft.GetPosition(), wallLeft.GetSize()))
-	{
-		velocity.x = -velocity.x;
-	} 	
-	else if (Utils::checkAABBIntersection(position, size, wallRight.GetPosition(), wallRight.GetSize()))
-	{
-		velocity.x = -velocity.x;
-	}
-
-	if (Utils::checkAABBIntersection(position, size, wallUp.GetPosition(), wallUp.GetSize()))
-	{
-		velocity.y = -velocity.y;
-	}
-	else if (Utils::checkAABBIntersection(position, size, wallDown.GetPosition(), wallDown.GetSize()))
-	{
-		end = true;
 	}
 }
 
 bool Ball::IsEnd()
 {
 	return end;
+}
+
+bool Ball::processCollidingWithPlatform(const Platform* const object)
+{
+	return processCollidingWithObject(object, object->GetVelocity());
+}
+
+bool Ball::processCollidingWithStaticObject(const BaseDrawable* const object)
+{
+	return processCollidingWithObject(object, { 0,0 });
+}
+
+bool Ball::processCollidingWithObject(const BaseDrawable* const object, const glm::vec2& objectVelocity)
+{
+	const auto& objectPosition = object->GetPosition();
+	const auto& objectSize = object->GetSize();
+
+	if (!Utils::checkAABBIntersection(position, size, objectPosition, objectSize))
+	{
+		return false;
+	}
+
+	auto side = getCollisionSide(object);
+	if (side == CollisionSide::RIGHT || side == CollisionSide::LEFT)
+	{
+		velocity.x = -velocity.x;
+		velocity.y += objectVelocity.y * 0.3f;
+
+		if (side == CollisionSide::LEFT)
+		{
+			position.x = objectPosition.x - size.x - 0.1f;
+		}
+		else
+		{
+			position.x = objectPosition.x + objectSize.x + 0.1f;
+		}
+	}
+	if (side == CollisionSide::BOTTOM || side == CollisionSide::TOP)
+	{
+		velocity.y = -velocity.y;
+		velocity.x += objectVelocity.x * 0.3f;
+
+		if (side == CollisionSide::TOP)
+		{
+			position.y = objectPosition.y - size.y - 0.1f;
+		}
+		else
+		{
+			position.y = objectPosition.y + objectSize.y + 0.1f;
+		}
+	}
+
+	return true;
+}
+
+Ball::CollisionSide Ball::getCollisionSide(const BaseDrawable* const object)
+{
+	glm::vec2 objectPosition = object->GetPosition();
+	glm::vec2 objectSize = object->GetSize();
+
+	// Вычисляем перекрытия по осям
+	float overlapLeft = (position.x + size.x) - objectPosition.x;
+	float overlapRight = (objectPosition.x + objectSize.x) - position.x;
+	float overlapTop = (position.y + size.y) - objectPosition.y;
+	float overlapBottom = (objectPosition.y + objectSize.y) - position.y;
+
+	// Находим минимальное перекрытие
+	float minOverlap = glm::min(glm::min(overlapLeft, overlapRight),
+		glm::min(overlapTop, overlapBottom));
+
+	if (minOverlap == overlapLeft)
+	{
+		return CollisionSide::LEFT;
+	}
+	if (minOverlap == overlapRight)
+	{
+		return CollisionSide::RIGHT;
+	}
+	if (minOverlap == overlapTop)
+	{
+		return CollisionSide::TOP;
+	}
+	if (minOverlap == overlapBottom)
+	{
+		return CollisionSide::BOTTOM;
+	}
+
+	return CollisionSide::NONE;
 }

@@ -25,7 +25,7 @@ public:
 	virtual void Act(float dt) override;
 
 	const Platform& GetPlatform() const;
-	const Wall& GetWall(Wall::Orientation orient) const;
+	const std::unordered_map<Wall::Orientation, Wall>& GetWalls() const;
 	std::vector<Brick>& GetBricks();
 
 private:

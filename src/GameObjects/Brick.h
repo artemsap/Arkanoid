@@ -1,15 +1,15 @@
 #pragma once
 
-#include "StaticObject.h"
+#include "BaseDrawable.h"
 #include "../Utils/Utils.h"
 
 #include <vector>
 #include <glm.hpp>
 
-class Brick : public StaticObject
+class Brick : public BaseDrawable
 {
 public:
-	Brick(const Drawable::Config& config) : StaticObject(config)
+	Brick(const Drawable::Config& config) : BaseDrawable(config)
 	{
 	}
 

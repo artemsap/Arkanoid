@@ -34,7 +34,6 @@
     <ClInclude Include="src\GameObjects\Interfaces\Drawable.h" />
     <ClInclude Include="src\GameObjects\Level.h" />
     <ClInclude Include="src\GameObjects\Platform.h" />
-    <ClInclude Include="src\GameObjects\StaticObject.h" />
     <ClInclude Include="src\GameObjects\Wall.h" />
     <ClInclude Include="src\Utils\Utils.h" />
   </ItemGroup>

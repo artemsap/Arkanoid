@@ -11,6 +11,9 @@ public:
 	BaseDrawable(const Drawable::Config& config) : size(config.size), position(config.position), color(config.color)
 	{}
 
+	virtual ~BaseDrawable()
+	{}
+
 	void Draw() const override
 	{
 		for (int i = 0; i < size.y; i++)
