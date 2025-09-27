@@ -15,6 +15,7 @@ public:
 
 	static const uint32_t defaultColor = Utils::rgb_to_uint32(255, 255, 255);
 
+	// TODO, remake bricks generator
 	static std::vector<Brick> GenerateBricks(const glm::vec2& brickSize, const glm::vec2& startDraw, const glm::vec2& endDraw)
 	{
 		auto getBrickPosition = [&startDraw, &brickSize](size_t i, size_t j, const glm::vec2& distance)

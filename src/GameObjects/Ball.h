@@ -13,10 +13,11 @@
 class Ball : public BaseDrawable, public Actable
 {
 public:
+	Ball() = default;
 	Ball(const Drawable::Config& config, const glm::vec2& velocity);
 
 	virtual void Act(float dt) override;
-	bool IsEnd();
+	bool IsEnd() const;
 
 	static const uint32_t defaultColor = Utils::rgb_to_uint32(255, 0, 0);
 private:
@@ -28,8 +29,8 @@ private:
 	bool processCollidingWithPlatform(const Platform* const object);
 	bool processCollidingWithStaticObject(const BaseDrawable* const object);
 	bool processCollidingWithObject(const BaseDrawable* const object, const glm::vec2& objectVelocity);
-	CollisionSide getCollisionSide(const BaseDrawable* const object);
+	CollisionSide getCollisionSide(const BaseDrawable* const object) const;
 
-	glm::vec2 velocity;
+	glm::vec2 velocity = { 0,0 };
 	bool end = false;
 };

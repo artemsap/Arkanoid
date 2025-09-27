@@ -21,6 +21,9 @@ public:
 	Level& operator=(const Level&) = delete;
 	Level& operator=(Level&&) = delete;
 
+	void InitLevel();
+	bool IsEnd() const;
+
 	virtual void Draw() const override;
 	virtual void Act(float dt) override;
 
@@ -31,19 +34,13 @@ public:
 private:
 	Level();
 
-	Platform platform{ Drawable::Config{{100, 10}, {SCREEN_WIDTH / 2 - 50, SCREEN_HEIGHT * 0.8f}, Platform::defaultColor}, 100 };
+	Platform platform;
 
 	int wallThinkness = 20;
-	std::unordered_map<Wall::Orientation, Wall> walls =
-	{
-		{Wall::Orientation::LEFT, Wall{ Drawable::Config{{wallThinkness, SCREEN_HEIGHT}, {0, 0}, Wall::defaultColor}}},
-		{Wall::Orientation::RIGHT, Wall{  Drawable::Config{{wallThinkness, SCREEN_HEIGHT}, {SCREEN_WIDTH - wallThinkness, 0}, Wall::defaultColor}}},
-		{Wall::Orientation::TOP, Wall{  Drawable::Config{{SCREEN_WIDTH, wallThinkness}, {0, 0}, Wall::defaultColor}}},
-		{Wall::Orientation::BOTTOM, Wall{  Drawable::Config{{SCREEN_WIDTH, wallThinkness}, {0, SCREEN_HEIGHT - wallThinkness}, Wall::defaultColor}}}
-	};
+	std::unordered_map<Wall::Orientation, Wall> walls;
 
+	glm::vec2 brickSize{ 100, 70 };
 	std::vector<Brick> bricks;
 
-	Ball ball{ Drawable::Config{{50.0f, 50.0f}, glm::vec2{ SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2 }, Ball::defaultColor}, {0, 100} };
+	Ball ball;
 };
-

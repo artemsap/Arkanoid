@@ -8,6 +8,8 @@
 class BaseDrawable : public Drawable
 {
 public:
+	BaseDrawable() = default;
+
 	BaseDrawable(const Drawable::Config& config) : size(config.size), position(config.position), color(config.color)
 	{}
 
@@ -48,7 +50,7 @@ public:
 	}
 
 protected:
-	glm::vec2 size;
-	glm::vec2 position;
-	uint32_t color;
+	glm::vec2 size = { 0,0 };
+	glm::vec2 position = { 0,0 };
+	uint32_t color = 0;
 };

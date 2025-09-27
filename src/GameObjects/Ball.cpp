@@ -28,7 +28,7 @@ void Ball::Act(float dt)
 	}
 }
 
-bool Ball::IsEnd()
+bool Ball::IsEnd() const
 {
 	return end;
 }
@@ -56,7 +56,7 @@ bool Ball::processCollidingWithObject(const BaseDrawable* const object, const gl
 	auto side = getCollisionSide(object);
 	if (side == CollisionSide::RIGHT || side == CollisionSide::LEFT)
 	{
-		velocity.x = -velocity.x;
+		velocity.x = -velocity.x + objectVelocity.x * 0.3f;
 		velocity.y += objectVelocity.y * 0.3f;
 
 		if (side == CollisionSide::LEFT)
@@ -70,7 +70,7 @@ bool Ball::processCollidingWithObject(const BaseDrawable* const object, const gl
 	}
 	if (side == CollisionSide::BOTTOM || side == CollisionSide::TOP)
 	{
-		velocity.y = -velocity.y;
+		velocity.y = -velocity.y + objectVelocity.y * 0.3f;
 		velocity.x += objectVelocity.x * 0.3f;
 
 		if (side == CollisionSide::TOP)
@@ -86,20 +86,19 @@ bool Ball::processCollidingWithObject(const BaseDrawable* const object, const gl
 	return true;
 }
 
-Ball::CollisionSide Ball::getCollisionSide(const BaseDrawable* const object)
+Ball::CollisionSide Ball::getCollisionSide(const BaseDrawable* const object) const
 {
 	glm::vec2 objectPosition = object->GetPosition();
 	glm::vec2 objectSize = object->GetSize();
 
 	// Вычисляем перекрытия по осям
-	float overlapLeft = (position.x + size.x) - objectPosition.x;
-	float overlapRight = (objectPosition.x + objectSize.x) - position.x;
-	float overlapTop = (position.y + size.y) - objectPosition.y;
-	float overlapBottom = (objectPosition.y + objectSize.y) - position.y;
+	float overlapLeft = (position.x + size.x) - objectPosition.x; //distance between right side of ball and left side of object
+	float overlapRight = (objectPosition.x + objectSize.x) - position.x; //distance between left side of ball and right side of object
+	float overlapTop = (position.y + size.y) - objectPosition.y; //distance between bottom side of ball and top side of object
+	float overlapBottom = (objectPosition.y + objectSize.y) - position.y; //distance between top side of ball and bottom side of object
 
 	// Находим минимальное перекрытие
-	float minOverlap = glm::min(glm::min(overlapLeft, overlapRight),
-		glm::min(overlapTop, overlapBottom));
+	float minOverlap = std::min({ overlapLeft, overlapRight, overlapTop, overlapBottom });
 
 	if (minOverlap == overlapLeft)
 	{

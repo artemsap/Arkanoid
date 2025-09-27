@@ -9,6 +9,7 @@
 class Platform : public BaseDrawable, public Actable
 {
 public:
+	Platform() = default;
 	Platform(const Drawable::Config& config, float speed_);
 
 	virtual void Act(float dt) override;
@@ -20,7 +21,7 @@ private:
 	void move(float dt);
 	void checkWallCollision();
 
-	const float default_speed;
-	const float shift_speed_multiplier = 3.0f;
+	float default_speed = 0.0f;
+	float shift_speed_multiplier = 3.0f;
 	glm::vec2 velocity = { 0, 0 };
 };

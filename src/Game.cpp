@@ -23,6 +23,7 @@ auto level = Level::Get();
 // initialize game data in this function
 void initialize()
 {
+	level->InitLevel();
 }
 
 // this function is called to update game data,
@@ -33,6 +34,10 @@ void act(float dt)
 		schedule_quit_game();
 
 	level->Act(dt);
+	if (level->IsEnd())
+	{
+		level->InitLevel();
+	}
 }
 
 // fill buffer in this function

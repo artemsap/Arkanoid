@@ -10,7 +10,7 @@
 uint32_t buffer[SCREEN_HEIGHT][SCREEN_WIDTH] = { 0 };
 
 static HINSTANCE hinst = 0;
-static DWORD ticks = 0;
+static ULONGLONG ticks = 0;
 static bool is_active = true;
 static POINT cursor_pos;
 static bool quited = false;
@@ -179,10 +179,10 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 	QueryPerformanceFrequency(&qpc_frequency);
 	QueryPerformanceCounter(&qpc_ref_time);
 
-	ticks = GetTickCount();
+	ticks = GetTickCount64();
 	initialize();
 
-	MSG msg;
+	MSG msg{};
 	while (!quited)
 	{
 		while (PeekMessage(&msg, NULL, 0, 0, PM_REMOVE))

@@ -30,20 +30,17 @@
     <ClInclude Include="src\GameObjects\Platform.h">
       <Filter>GameObjects</Filter>
     </ClInclude>
-    <ClInclude Include="src\GameObjects\StaticObject.h">
-      <Filter>GameObjects</Filter>
-    </ClInclude>
     <ClInclude Include="src\GameObjects\Wall.h">
       <Filter>GameObjects</Filter>
-    </ClInclude>
-    <ClInclude Include="src\GameObjects\Utils.h">
-      <Filter>Utils</Filter>
     </ClInclude>
     <ClInclude Include="src\GameObjects\Interfaces\Actable.h">
       <Filter>GameObjects\Interfaces</Filter>
     </ClInclude>
     <ClInclude Include="src\GameObjects\Interfaces\Drawable.h">
       <Filter>GameObjects\Interfaces</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Utils\Utils.h">
+      <Filter>Utils</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -54,7 +51,7 @@
       <UniqueIdentifier>{9e6106e9-f2f1-4534-9102-f2e948260ad2}</UniqueIdentifier>
     </Filter>
     <Filter Include="Utils">
-      <UniqueIdentifier>{409d6df9-c875-463f-bb12-46e09be2200c}</UniqueIdentifier>
+      <UniqueIdentifier>{7b99c655-1afd-4031-9509-ad74c9981a73}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
