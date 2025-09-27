@@ -17,11 +17,7 @@ void Ball::Act(float dt)
 	processCollidingWithPlatform(&(level->GetPlatform()));
 
 	auto& bricks = level->GetBricks();
-	auto res = std::partition(bricks.begin(), bricks.end(), [&](const Brick& brick) { return !processCollidingWithStaticObject(&brick); });
-	if (res != bricks.end())
-	{
-		bricks.erase(res, std::end(bricks));
-	}
+	std::erase_if(bricks, [&](const Brick& brick) { return processCollidingWithStaticObject(&brick); });
 
 	for (const auto& [orient, object] : level->GetWalls())
 	{
