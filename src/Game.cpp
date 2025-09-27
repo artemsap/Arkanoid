@@ -34,9 +34,13 @@ void act(float dt)
 		schedule_quit_game();
 
 	level->Act(dt);
-	if (level->IsEnd())
+	if (level->IsLose())
 	{
 		level->InitLevel();
+	}
+	if (level->IsWin())
+	{
+		schedule_quit_game();
 	}
 }
 

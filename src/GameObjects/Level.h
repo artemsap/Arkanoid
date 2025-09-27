@@ -1,7 +1,7 @@
 #pragma once
 
-#include<memory>
-#include<unordered_map>
+#include <memory>
+#include <unordered_map>
 
 #include "Interfaces/Drawable.h"
 #include "Interfaces/Actable.h"
@@ -22,7 +22,8 @@ public:
 	Level& operator=(Level&&) = delete;
 
 	void InitLevel();
-	bool IsEnd() const;
+	bool IsWin() const;
+	bool IsLose() const;
 
 	virtual void Draw() const override;
 	virtual void Act(float dt) override;
@@ -36,11 +37,8 @@ private:
 
 	Platform platform;
 
-	int wallThinkness = 20;
 	std::unordered_map<Wall::Orientation, Wall> walls;
 
-	glm::vec2 brickSize{ 100, 70 };
 	std::vector<Brick> bricks;
-
-	Ball ball;
+	std::vector<Ball> balls;
 };

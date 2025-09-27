@@ -1,4 +1,5 @@
 #include "Platform.h"
+
 #include <limits>
 
 Platform::Platform(const Drawable::Config& config, float speed_) :

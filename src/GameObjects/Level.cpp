@@ -13,7 +13,9 @@ Level::Level()
 void Level::InitLevel()
 {
 	platform = Platform{ Drawable::Config{{100, 10}, {SCREEN_WIDTH / 2 - 50, SCREEN_HEIGHT * 0.8f}, Platform::defaultColor}, 100 };
-	walls =
+	
+	int wallThinkness = 20;
+	walls = 
 	{
 		{Wall::Orientation::LEFT, Wall{ Drawable::Config{{wallThinkness, SCREEN_HEIGHT}, {0, 0}, Wall::defaultColor}}},
 		{Wall::Orientation::RIGHT, Wall{  Drawable::Config{{wallThinkness, SCREEN_HEIGHT}, {SCREEN_WIDTH - wallThinkness, 0}, Wall::defaultColor}}},
@@ -21,18 +23,28 @@ void Level::InitLevel()
 		{Wall::Orientation::BOTTOM, Wall{  Drawable::Config{{SCREEN_WIDTH, wallThinkness}, {0, SCREEN_HEIGHT - wallThinkness}, Wall::defaultColor}}}
 	};
 
-	bricks = Brick::GenerateBricks(brickSize, glm::vec2(wallThinkness, wallThinkness), glm::vec2(SCREEN_WIDTH - wallThinkness, SCREEN_HEIGHT / 2));
-	ball = Ball{ Drawable::Config{{50.0f, 50.0f}, glm::vec2{ SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2 }, Ball::defaultColor}, {0, 100} };
+	bricks = Brick::GenerateBricks({ 100, 70 }, glm::vec2(wallThinkness, wallThinkness), glm::vec2(SCREEN_WIDTH - wallThinkness, SCREEN_HEIGHT / 2));
+
+	float ballSize = 50.0f;
+	balls.push_back(Ball{ Drawable::Config{{ballSize, ballSize}, glm::vec2{ SCREEN_WIDTH / 2 - ballSize / 2, SCREEN_HEIGHT / 2 }, Ball::defaultColor}, {0, 100} });
 }
 
-bool Level::IsEnd() const
+bool Level::IsWin() const
 {
-	return ball.IsEnd();
+	return bricks.empty();
+}
+
+bool Level::IsLose() const
+{
+	return balls.empty();
 }
 
 void Level::Draw() const
 {
-	ball.Draw();
+	for (const auto& ball : balls)
+	{
+		ball.Draw();
+	}
 	platform.Draw();
 	for (const auto& wall : walls)
 	{
@@ -46,7 +58,19 @@ void Level::Draw() const
 
 void Level::Act(float dt)
 {
-	ball.Act(dt);
+	for (auto iter = balls.begin(); iter != balls.end();)
+	{
+		(*iter).Act(dt);
+		if ((*iter).IsDestroid())
+		{
+			iter = balls.erase(iter);
+		}
+		else
+		{
+			++iter;
+		}
+	}
+
 	platform.Act(dt);
 }
 

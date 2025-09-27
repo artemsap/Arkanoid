@@ -1,6 +1,7 @@
 #include "Ball.h"
-#include <limits>
 #include "Level.h"
+
+#include <limits>
 
 Ball::Ball(const Drawable::Config& config, const glm::vec2& velocity_) : BaseDrawable(config)
 {
@@ -23,14 +24,14 @@ void Ball::Act(float dt)
 	{
 		if (processCollidingWithStaticObject(&object) && orient == Wall::Orientation::BOTTOM)
 		{
-			end = true;
+			needToDestroy = true;
 		}
 	}
 }
 
-bool Ball::IsEnd() const
+bool Ball::IsDestroid() const
 {
-	return end;
+	return needToDestroy;
 }
 
 bool Ball::processCollidingWithPlatform(const Platform* const object)

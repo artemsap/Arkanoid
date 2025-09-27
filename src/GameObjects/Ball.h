@@ -17,7 +17,7 @@ public:
 	Ball(const Drawable::Config& config, const glm::vec2& velocity);
 
 	virtual void Act(float dt) override;
-	bool IsEnd() const;
+	bool IsDestroid() const;
 
 	static const uint32_t defaultColor = Utils::rgb_to_uint32(255, 0, 0);
 private:
@@ -32,5 +32,5 @@ private:
 	CollisionSide getCollisionSide(const BaseDrawable* const object) const;
 
 	glm::vec2 velocity = { 0,0 };
-	bool end = false;
+	bool needToDestroy = false;
 };
