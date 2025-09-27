@@ -35,8 +35,8 @@
     <ClInclude Include="src\GameObjects\Level.h" />
     <ClInclude Include="src\GameObjects\Platform.h" />
     <ClInclude Include="src\GameObjects\StaticObject.h" />
-    <ClInclude Include="src\GameObjects\Utils.h" />
     <ClInclude Include="src\GameObjects\Wall.h" />
+    <ClInclude Include="src\Utils\Utils.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>12.0</VCProjectVersion>
