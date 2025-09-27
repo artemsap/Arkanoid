@@ -12,7 +12,8 @@ Level::Level()
 
 void Level::InitLevel()
 {
-	platform = Platform{ Drawable::Config{{100, 10}, {SCREEN_WIDTH / 2 - 50, SCREEN_HEIGHT * 0.8f}, Platform::defaultColor}, 100 };
+	glm::vec2 platformSize{ 150,15 };
+	platform = Platform{ Drawable::Config{platformSize, {SCREEN_WIDTH / 2 - platformSize.x / 2, SCREEN_HEIGHT * 0.8f}, Platform::defaultColor}, 100 };
 	
 	int wallThinkness = 20;
 	walls = 

@@ -30,7 +30,7 @@ public:
 
 		glm::vec2 distanceBetweenBricks = { endDraw - lastBrickCoord };
 		distanceBetweenBricks.x /= (bricksX + 1);
-		distanceBetweenBricks.y /= distanceBetweenBricks.x;
+		distanceBetweenBricks.y = distanceBetweenBricks.x;
 
 		std::vector<Brick> bricks;
 		bricks.reserve(bricksX * bricksY);
