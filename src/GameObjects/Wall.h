@@ -1,7 +1,7 @@
 #pragma once
 
 #include "StaticObject.h"
-#include "Utils.h"
+#include "../Utils/Utils.h"
 
 #include <glm.hpp>
 

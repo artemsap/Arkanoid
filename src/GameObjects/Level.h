@@ -3,8 +3,8 @@
 #include<memory>
 #include<unordered_map>
 
-#include "Drawable.h"
-#include "Actable.h"
+#include "Interfaces/Drawable.h"
+#include "Interfaces/Actable.h"
 
 #include "Ball.h"
 #include "Platform.h"

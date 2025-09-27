@@ -18,6 +18,26 @@
       <Platform>x64</Platform>
     </ProjectConfiguration>
   </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\Engine.cpp" />
+    <ClCompile Include="src\Game.cpp" />
+    <ClCompile Include="src\GameObjects\Ball.cpp" />
+    <ClCompile Include="src\GameObjects\Level.cpp" />
+    <ClCompile Include="src\GameObjects\Platform.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\Engine.h" />
+    <ClInclude Include="src\GameObjects\Ball.h" />
+    <ClInclude Include="src\GameObjects\BaseDrawable.h" />
+    <ClInclude Include="src\GameObjects\Brick.h" />
+    <ClInclude Include="src\GameObjects\Interfaces\Actable.h" />
+    <ClInclude Include="src\GameObjects\Interfaces\Drawable.h" />
+    <ClInclude Include="src\GameObjects\Level.h" />
+    <ClInclude Include="src\GameObjects\Platform.h" />
+    <ClInclude Include="src\GameObjects\StaticObject.h" />
+    <ClInclude Include="src\GameObjects\Utils.h" />
+    <ClInclude Include="src\GameObjects\Wall.h" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>12.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
@@ -148,26 +168,6 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
   </ItemDefinitionGroup>
-  <ItemGroup>
-    <ClInclude Include="Actable.h" />
-    <ClInclude Include="Ball.h" />
-    <ClInclude Include="BaseDrawable.h" />
-    <ClInclude Include="Brick.h" />
-    <ClInclude Include="Engine.h" />
-    <ClInclude Include="Drawable.h" />
-    <ClInclude Include="Level.h" />
-    <ClInclude Include="Platform.h" />
-    <ClInclude Include="Utils.h" />
-    <ClInclude Include="StaticObject.h" />
-    <ClInclude Include="Wall.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="Ball.cpp" />
-    <ClCompile Include="Engine.cpp" />
-    <ClCompile Include="Game.cpp" />
-    <ClCompile Include="Level.cpp" />
-    <ClCompile Include="Platform.cpp" />
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

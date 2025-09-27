@@ -1,7 +1,7 @@
 #pragma once
 
 #include "BaseDrawable.h"
-#include "Utils.h"
+#include "../Utils/Utils.h"
 
 #include <glm.hpp>
 
@@ -16,4 +16,3 @@ public:
 		return { 0,0 };
 	}
 };
-

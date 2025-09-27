@@ -1,8 +1,8 @@
 #pragma once
 
 #include "BaseDrawable.h"
-#include "Actable.h"
-#include "Utils.h"
+#include "Interfaces/Actable.h"
+#include "../Utils/Utils.h"
 #include "Platform.h"
 #include "Wall.h"
 #include "Brick.h"

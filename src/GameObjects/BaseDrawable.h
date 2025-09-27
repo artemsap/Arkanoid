@@ -1,7 +1,7 @@
 #pragma once
 
-#include "Drawable.h"
-#include "Engine.h"
+#include "Interfaces/Drawable.h"
+#include "../Engine.h"
 #include <glm.hpp>
 #include <algorithm>
 

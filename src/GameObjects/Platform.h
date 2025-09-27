@@ -1,8 +1,8 @@
 #pragma once
 
 #include "BaseDrawable.h"
-#include "Actable.h"
-#include "Utils.h"
+#include "Interfaces/Actable.h"
+#include "../Utils/Utils.h"
 
 #include <glm.hpp>
 
@@ -24,4 +24,3 @@ private:
 	const float shift_speed_multiplier = 3.0f;
 	glm::vec2 velocity = { 0, 0 };
 };
-
