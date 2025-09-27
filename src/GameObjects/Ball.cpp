@@ -2,8 +2,7 @@
 #include <limits>
 #include "Level.h"
 
-Ball::Ball(const glm::vec2& size_, const glm::vec2& position_, uint32_t color_, const glm::vec2& velocity_)
-	: BaseDrawable(size_, position_, Utils::rgb_to_uint32(255, 0, 0))
+Ball::Ball(const Drawable::Config& config, const glm::vec2& velocity_) : BaseDrawable(config)
 {
 	velocity = velocity_;
 }

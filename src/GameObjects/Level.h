@@ -31,19 +31,19 @@ public:
 private:
 	Level();
 
-	Platform platform{ {100, 10}, {SCREEN_WIDTH / 2 - 50, SCREEN_HEIGHT * 0.8f}, Platform::defaultColor, 100 };
+	Platform platform{ Drawable::Config{{100, 10}, {SCREEN_WIDTH / 2 - 50, SCREEN_HEIGHT * 0.8f}, Platform::defaultColor}, 100 };
 
 	int wallThinkness = 20;
 	std::unordered_map<Wall::Orientation, Wall> walls =
 	{
-		{Wall::Orientation::LEFT, Wall{ {wallThinkness, SCREEN_HEIGHT}, {0, 0}, Wall::defaultColor }},
-		{Wall::Orientation::RIGHT, Wall{ {wallThinkness, SCREEN_HEIGHT}, {SCREEN_WIDTH - wallThinkness, 0}, Wall::defaultColor}},
-		{Wall::Orientation::TOP, Wall{ {SCREEN_WIDTH, wallThinkness}, {0, 0}, Wall::defaultColor} },
-		{Wall::Orientation::BOTTOM, Wall{ {SCREEN_WIDTH, wallThinkness}, {0, SCREEN_HEIGHT - wallThinkness}, Wall::defaultColor }}
+		{Wall::Orientation::LEFT, Wall{ Drawable::Config{{wallThinkness, SCREEN_HEIGHT}, {0, 0}, Wall::defaultColor}}},
+		{Wall::Orientation::RIGHT, Wall{  Drawable::Config{{wallThinkness, SCREEN_HEIGHT}, {SCREEN_WIDTH - wallThinkness, 0}, Wall::defaultColor}}},
+		{Wall::Orientation::TOP, Wall{  Drawable::Config{{SCREEN_WIDTH, wallThinkness}, {0, 0}, Wall::defaultColor}}},
+		{Wall::Orientation::BOTTOM, Wall{  Drawable::Config{{SCREEN_WIDTH, wallThinkness}, {0, SCREEN_HEIGHT - wallThinkness}, Wall::defaultColor}}}
 	};
 
 	std::vector<Brick> bricks;
 
-	Ball ball{ {50.0f, 50.0f}, glm::vec2{ SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2 }, Ball::defaultColor, {0, 100}};
+	Ball ball{ Drawable::Config{{50.0f, 50.0f}, glm::vec2{ SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2 }, Ball::defaultColor}, {0, 100} };
 };
 

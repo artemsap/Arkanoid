@@ -9,7 +9,7 @@
 class Brick : public StaticObject
 {
 public:
-	Brick(const glm::vec2& size_, const glm::vec2& position_, uint32_t color_) : StaticObject(size_, position_, color_)
+	Brick(const Drawable::Config& config) : StaticObject(config)
 	{
 	}
 
@@ -39,7 +39,7 @@ public:
 			for (size_t j = 0; j < bricksY; j++)
 			{
 				glm::vec2 brickPosition = getBrickPosition(i, j, distanceBetweenBricks);
-				bricks.emplace_back(brickSize, brickPosition, Brick::defaultColor);
+				bricks.emplace_back(Brick(Drawable::Config{ brickSize, brickPosition, Brick::defaultColor }));
 			}
 		}
 

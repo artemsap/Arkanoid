@@ -9,7 +9,7 @@
 class Platform : public BaseDrawable, public Actable
 {
 public:
-	Platform(const glm::vec2& size_, const glm::vec2& position_, uint32_t color_, float speed_);
+	Platform(const Drawable::Config& config, float speed_);
 
 	virtual void Act(float dt) override;
 	const glm::vec2& GetVelocity() const;

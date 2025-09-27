@@ -8,8 +8,7 @@
 class BaseDrawable : public Drawable
 {
 public:
-	BaseDrawable(const glm::vec2& size_, const glm::vec2& position_, uint32_t color_)
-		: size(size_), position(position_), color(color_)
+	BaseDrawable(const Drawable::Config& config) : size(config.size), position(config.position), color(config.color)
 	{}
 
 	void Draw() const override

@@ -17,7 +17,7 @@ public:
 	};
 
 public:
-	Wall(const glm::vec2& size_, glm::vec2 position_, uint32_t color_) : StaticObject(size_, position_, color_)
+	Wall(const Drawable::Config& config) : StaticObject(config)
 	{}
 
 	static const uint32_t defaultColor = Utils::rgb_to_uint32(120, 120, 120);
